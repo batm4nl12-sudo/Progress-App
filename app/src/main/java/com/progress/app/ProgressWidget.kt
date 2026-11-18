@@ -1,31 +1,35 @@
 package com.progress.app
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.widget.RemoteViews
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.math.max
-import kotlin.math.min
 
 class ProgressWidget : AppWidgetProvider() {
-    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        val prefs = context.getSharedPreferences("ProgressPrefs", Context.MODE_PRIVATE)
-        val eventName = prefs.getString("eventName", "Hedef") ?: "Hedef"
-        val targetDateString = prefs.getString("targetDate", "2026-12-31") ?: "2026-12-31"
-        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val today = Calendar.getInstance().time
-        val targetDate = formatter.parse(targetDateString) ?: today
-        val totalDays = ((targetDate.time - today.time) / (1000 * 60 * 60 * 24)).toInt()
-        val remainingDays = max(0, totalDays)
-        val progress = if (totalDays > 0) min(100, max(0, 100 - (totalDays * 100 / 365))) else 100
-        for (appWidgetId in appWidgetIds) {
-            val views = RemoteViews(context.packageName, R.layout.progress_widget).apply {
-                setTextViewText(R.id.widget_event_name, eventName)
-                setTextViewText(R.id.widget_days_left, "$remainingDays Gün Kaldı")
-                setProgressBar(R.id.widget_progress_bar, 100, progress, false)
-            }
-            appWidgetManager.updateAppWidget(appWidgetId, views)
-        }
+    override fun onUpdate(context: Context, mgr: AppWidgetManager, ids: IntArray) {
+        for (id in ids) draw(context, mgr, id)
+    }
+    override fun onAppWidgetOptionsChanged(context: Context, mgr: AppWidgetManager, id: Int, newOptions: Bundle) {
+        draw(context, mgr, id)
+    }
+    private fun draw(context: Context, mgr: AppWidgetManager, id: Int) {
+        val p = context.getSharedPreferences("ProgressPrefs", Context.MODE_PRIVATE)
+        val s = WidgetRenderer.Style(
+            p.getString("name", "Yılbaşı 2027") ?: "Yılbaşı 2027",
+            WidgetRenderer.parse(p.getString("start", null), "2026-01-01"),
+            WidgetRenderer.parse(p.getString("end", null), "2027-01-01"),
+            p.getInt("palette", 0), p.getInt("radius", 22), p.getInt("thick", 10),
+            p.getBoolean("showPercent", true), p.getBoolean("showDays", true), p.getBoolean("light", false))
+        val o = mgr.getAppWidgetOptions(id)
+        val w = o.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 250)
+        val h = o.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 120)
+        val views = RemoteViews(context.packageName, R.layout.progress_widget)
+        views.setImageViewBitmap(R.id.widget_image, WidgetRenderer.render(context, s, w, h))
+        val pi = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        views.setOnClickPendingIntent(R.id.widget_image, pi)
+        mgr.updateAppWidget(id, views)
     }
 }

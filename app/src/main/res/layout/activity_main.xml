@@ -1,11 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:padding="24dp" android:gravity="center">
-    <EditText android:id="@+id/etEventName" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:hint="Etkinlik Adı (örn: Tatil)" />
-    <EditText android:id="@+id/etTargetDate" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:hint="Hedef Tarih (YYYY-AA-GG)" android:inputType="date" />
-    <Button android:id="@+id/btnSave" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:text="Kaydet ve Widget Güncelle" android:layout_marginTop="16dp" />
-</LinearLayout>
+    android:background="@color/bg" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="20dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Progress" android:textColor="@color/ink" android:textSize="34sp" android:textStyle="bold"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Geri sayım ve ilerleme widget'ı" android:textColor="@color/muted"
+            android:textSize="13sp" android:layout_marginTop="2dp"/>
+        <View android:layout_width="72dp" android:layout_height="4dp"
+            android:layout_marginTop="10dp" android:background="@drawable/brand_bar"/>
+        <ImageView android:id="@+id/preview" android:layout_width="match_parent"
+            android:layout_height="170dp" android:layout_marginTop="18dp"
+            android:scaleType="fitXY" android:contentDescription="Widget önizleme"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="ETKİNLİK ADI" android:textColor="@color/muted" android:textSize="11sp"
+            android:letterSpacing="0.12" android:layout_marginTop="22dp"/>
+        <EditText android:id="@+id/etName" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="6dp"
+            android:background="@drawable/field_bg" android:padding="14dp"
+            android:textColor="@color/ink" android:textSize="16sp"
+            android:inputType="textCapSentences" android:maxLines="1"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="TARİH ARALIĞI" android:textColor="@color/muted" android:textSize="11sp"
+            android:letterSpacing="0.12" android:layout_marginTop="18dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginTop="6dp">
+            <Button android:id="@+id/btnStart" android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:layout_marginEnd="8dp"
+                android:background="@drawable/field_bg" android:textColor="@color/ink"
+                android:textSize="14sp" android:textAllCaps="false" android:stateListAnimator="@null"/>
+            <Button android:id="@+id/btnEnd" android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:background="@drawable/field_bg"
+                android:textColor="@color/ink" android:textSize="14sp"
+                android:textAllCaps="false" android:stateListAnimator="@null"/>
+        </LinearLayout>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="RENK PALETİ" android:textColor="@color/muted" android:textSize="11sp"
+            android:letterSpacing="0.12" android:layout_marginTop="18dp"/>
+        <LinearLayout android:id="@+id/chips" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="8dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="18dp">
+            <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                android:text="KÖŞE YUVARLAKLIĞI" android:textColor="@color/muted" android:textSize="11sp" android:letterSpacing="0.12"/>
+            <TextView android:id="@+id/radiusVal" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/accent" android:textSize="12sp"/>
+        </LinearLayout>
+        <SeekBar android:id="@+id/sbRadius" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:max="32" android:layout_marginTop="6dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="14dp">
+            <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                android:text="ÇUBUK KALINLIĞI" android:textColor="@color/muted" android:textSize="11sp" android:letterSpacing="0.12"/>
+            <TextView android:id="@+id/thickVal" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/accent" android:textSize="12sp"/>
+        </LinearLayout>
+        <SeekBar android:id="@+id/sbThick" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:max="18" android:layout_marginTop="6dp"/>
+        <Switch android:id="@+id/swPercent" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="Yüzde etiketi göster"
+            android:textColor="@color/ink" android:textSize="15sp" android:layout_marginTop="14dp"/>
+        <Switch android:id="@+id/swDays" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="Kalan günü göster"
+            android:textColor="@color/ink" android:textSize="15sp" android:layout_marginTop="8dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="WIDGET TEMASI" android:textColor="@color/muted" android:textSize="11sp"
+            android:letterSpacing="0.12" android:layout_marginTop="14dp"/>
+        <Spinner android:id="@+id/spTheme" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="6dp"
+            android:background="@drawable/field_bg" android:padding="8dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginTop="22dp">
+            <Button android:id="@+id/btnReset" android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:background="@drawable/btn_ghost"
+                android:text="Sıfırla" android:textColor="@color/ink"
+                android:textAllCaps="false" android:stateListAnimator="@null"/>
+            <Button android:id="@+id/btnSave" android:layout_width="0dp" android:layout_weight="2"
+                android:layout_height="wrap_content" android:layout_marginStart="10dp"
+                android:background="@drawable/btn_primary" android:text="Kaydet ve Widget'ı Güncelle"
+                android:textColor="#FFFFFF" android:textStyle="bold"
+                android:textAllCaps="false" android:stateListAnimator="@null"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

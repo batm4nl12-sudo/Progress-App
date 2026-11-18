@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:padding="16dp" android:background="#DDDDDD">
-    <TextView android:id="@+id/widget_event_name" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:text="Hedef" android:textSize="18sp"
-        android:textStyle="bold" android:textColor="#000000" />
-    <ProgressBar android:id="@+id/widget_progress_bar" style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" android:progress="50" />
-    <TextView android:id="@+id/widget_days_left" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:text="0 Gün Kaldı" android:textSize="14sp"
-        android:textColor="#333333" android:layout_marginTop="4dp" />
-</LinearLayout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView android:id="@+id/widget_image" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:scaleType="fitXY"
+        android:contentDescription="Progress widget"/>
+</FrameLayout>
