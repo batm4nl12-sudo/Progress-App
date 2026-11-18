@@ -7,5 +7,5 @@
     <EditText android:id="@+id/etTargetDate" android:layout_width="match_parent"
         android:layout_height="wrap_content" android:hint="Hedef Tarih (YYYY-AA-GG)" android:inputType="date" />
     <Button android:id="@+id/btnSave" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:text="Kaydet ve Widget'ı Güncelle" android:layout_marginTop="16dp" />
+        android:layout_height="wrap_content" android:text="Kaydet ve Widget Güncelle" android:layout_marginTop="16dp" />
 </LinearLayout>
